@@ -32,7 +32,7 @@ export default function Home() {
                 title="Inventory Management" 
                 description="Effortlessly track and control supplies. 
                 Stay well-stocked and avoid disruptions with our user-friendly interface for managing inventory levels."
-                icon="/inventory.svg" image="/inventory-management.png"
+                icon="/inventory.svg" image="/inventory-management.svg"
                 alt="my kinyozi inventory management"
                 grid="col-span-4"
               />
@@ -40,7 +40,7 @@ export default function Home() {
                 title="Staff Management" 
                 description="Optimize your workforce with effective scheduling. 
                 Ensure your barbershop meets customer demand without unnecessary overstaffing."
-                icon="/staff-icon.svg" image="/barbershop-staff.png"
+                icon="/staff-icon.svg" image="/barbershop-staff.svg"
                 alt="my kinyozi staff management"
                 grid="col-span-3"
               />
@@ -50,14 +50,14 @@ export default function Home() {
                 title="Appointment Scheduling" 
                 description="Enhance customer experience with an intuitive scheduling system. 
                 Allow clients to book appointments online, receive notifications, and easily manage their bookings."
-                icon="/appointments.svg" image="/scheduling.png"
+                icon="/appointments.svg" image="/scheduling.svg"
                 alt="my kinyozi appointment scheduling"
                 grid="col-span-3"
               />
               <Service 
                 title="Book Keeping"
                 description="Effortlessly handle your barbershop's finances with our comprehensive Bookkeeping and Financial Management service."
-                icon="/financials.svg" image="/financial-management.png"
+                icon="/financials.svg" image="/financial-management.svg"
                 alt="my kinyozi book keeping"
                 grid="col-span-4"
               />
