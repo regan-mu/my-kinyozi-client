@@ -1,113 +1,133 @@
-import Image from 'next/image'
+import Image from 'next/image';
+import Header from './components/Header';
+import Service from './components/Service';
+import Link from 'next/link';
+import Carousel from './components/WhyUsCarousel';
+import Expander from './components/FaqExpander';
+import Footer from './components/Footer';
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className="bg-dark-blue h-auto px-14 font-poppins text-white">
+      <Header />
+      <section className="w-full h-[85vh] grid grid-cols-2 py-5 mb-20">
+        <div className="flex flex-col justify-center gap-4  h-full w-full">
+          <h2 className="font-bold text-5xl w-full">
+            Elevate Your Barbershop Experience with <span className="text-secondary">Effortless Management</span>
+          </h2>
+          <p className="text-gray-300 font-thin text-base p-0 ">
+            Streamline Operations, Optimize Staff, and Enhance Customer Satisfaction.
+          </p>
+          <Link className="bg-secondary w-max py-2 px-4 rounded-lg hover:text-gray-300 transition-all duration-100 ease-in" href="/">Get Started</Link>
         </div>
-      </div>
+        <div className="w-full flex justify-end relative">
+          <Image className="object-contain" src="/my-kinyozi-hero.svg" alt="my kinyozi hero" fill={true}/>
+        </div>
+      </section>
+      <section id="services-section">
+        <h2 className="font-bold text-4xl text-center">Services</h2>
+        <div className="grid grid-cols-1 gap-10 grid-rows-2 mt-10">
+            <div className="grid grid-cols-7 gap-10">
+              <Service 
+                title="Inventory Management" 
+                description="Effortlessly track and control supplies. 
+                Stay well-stocked and avoid disruptions with our user-friendly interface for managing inventory levels."
+                icon="/inventory.svg" image="/inventory-management.png"
+                alt="my kinyozi inventory management"
+                grid="col-span-4"
+              />
+              <Service 
+                title="Staff Management" 
+                description="Optimize your workforce with effective scheduling. 
+                Ensure your barbershop meets customer demand without unnecessary overstaffing."
+                icon="/staff-icon.svg" image="/barbershop-staff.png"
+                alt="my kinyozi staff management"
+                grid="col-span-3"
+              />
+            </div>
+            <div className="grid grid-cols-7 gap-10">
+              <Service 
+                title="Appointment Scheduling" 
+                description="Enhance customer experience with an intuitive scheduling system. 
+                Allow clients to book appointments online, receive notifications, and easily manage their bookings."
+                icon="/appointments.svg" image="/scheduling.png"
+                alt="my kinyozi appointment scheduling"
+                grid="col-span-3"
+              />
+              <Service 
+                title="Book Keeping"
+                description="Effortlessly handle your barbershop's finances with our comprehensive Bookkeeping and Financial Management service."
+                icon="/financials.svg" image="/financial-management.png"
+                alt="my kinyozi book keeping"
+                grid="col-span-4"
+              />
+            </div>
+        </div>
+      </section>
+      <section id="about-section" className="mt-24">
+        <div className="grid grid-cols-2 gap-10 h-[70vh]">
+          <Image className="relative w-full h-full" src="/about-image.svg" alt="about my kinyozi" width={500} height={300} />
+          <div className="w-full h-full flex flex-col justify-center">
+            <h3 className="text-4xl font-bold mb-7">About Us</h3>
+            <p className="text-justify text-gray-300 font-roboto font-thin text-[16px] mb-5">
+              At Kinyozi, our mission is to revolutionize the barbershop industry by providing 
+              innovative and user-friendly management solutions. 
+              We aim to empower barbershops of all sizes with the tools they need to 
+              enhance operational efficiency, elevate customer experiences, 
+              and foster growth in an ever-evolving business landscape.
+            </p>
+            <Link className="bg-secondary w-max py-2 px-4 text-white rounded-full" href="#about-section">Learn More</Link>
+          </div>
+        </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+        {/* Why choose us */}
+        <div className="mt-24">
+          <h3 className="text-4xl font-bold mb-14 text-center">Why choose us</h3>
+          <Carousel />
+        </div>
+      </section>
+      {/* FAQs */}
+      <section className="mt-24">
+        <h3 className="text-4xl font-bold mb-1 text-center">FAQs</h3>
+        <p className="text-gray-300 text-base text-center mb-10">
+          Here are some of our most asked questions. If yours is not there, do not hesitate to contact us.
+        </p>
+        <Expander />
+      </section>
+      {/* Contact */}
+      <section id="contact-section" className="my-24 grid grid-cols-2 grid-rows-1 w-full h-[80vh]">
+        <div className="relative w-full h-full">
+          <Image className="object-cover" src="/contact-us.svg" alt="my kinyozi contact" fill={true} />
+        </div>
+        <div className="flex flex-col gap-2 px-10 py-5 bg-accent">
+          <h3 className="font-semibold text-2xl">Contact Us</h3>
+          <p className="font-medium text-gray-400">We would love to hear from you.</p>
+          <form className="flex flex-col gap-2 mt-5">
+            <div className="flex gap-5">
+              <div className="flex flex-col gap-2 w-full">
+                <label className="text-gray-400" htmlFor="f_name">First Name</label>
+                <input className="h-10 border border-gray-500 rounded-md outline-none bg-accent p-2 text-sm text-gray-300" id="f_name" name="f_name" required type="text" placeholder='Enter first name' />
+              </div>
+              <div className="flex flex-col gap-2 w-full">
+                <label className="text-gray-400" htmlFor="l_name">Last Name</label>
+                <input className="h-10 border border-gray-500 rounded-md outline-none bg-accent p-2 text-sm text-gray-300" id="l_name" name="l_name" required type="text" placeholder='Enter last name' />
+              </div>
+            </div>
+            <div className="flex flex-col gap-2 col-span-2">
+              <label className="text-gray-400" htmlFor="email">Email</label>
+              <input className="h-10 border border-gray-500 rounded-md outline-none bg-accent p-2 text-sm text-gray-300" id="email" name="email" required type="email" placeholder='Enter email' />
+            </div>
+            <div className="flex flex-col gap-2 col-span-2">
+              <label className="text-gray-400" htmlFor="message">Last Name</label>
+              <textarea className="resize-none h-16 border border-gray-500 rounded-lg outline-none bg-accent p-2 text-xs text-gray-200" id="message" name="message" required></textarea>
+            </div>
+            <div className="flex flex-col gap-2 col-span-2">
+              <button className="bg-secondary py-2 rounded-md text-lg" type="submit">Send Message</button>
+            </div>
+          </form>
+        </div>
+      </section>
+      <Footer />
     </main>
   )
 }
