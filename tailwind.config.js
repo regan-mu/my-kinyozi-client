@@ -22,6 +22,9 @@ module.exports = {
         'inter': ['Inter', 'sans-serif'],
         'roboto': ['Roboto', 'sans-serif']
       },
+      height: {
+        'custom': 'calc(100vh - 80px)',
+      },
       fontWeight: {
         thin: 100,
         extralight: 200,

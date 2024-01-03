@@ -38,8 +38,8 @@ export default function Carousel() {
 
 
     return (
-        <div className="grid grid-cols-2 grid-rows-1 gap-12 h-96">
-            <div className="flex flex-col justify-between border-l-2 border-gray-700">
+        <div className="flex flex-col gap-12 h-auto md:grid md:grid-cols-2 md:grid-rows-1 md:h-96">
+            <div className="flex flex-col gap-5 border-l-2 order-2 border-gray-700 md:order-1 md:justify-between">
                 {
                     sectionsData.map((data, index) => {
                         return <div key={uniqid()} className={index !== currentSection ? "flex flex-col text-gray-400 pl-5": "-ml-[3px] flex flex-col border-l-4 border-secondary text-white pl-5"}>
@@ -49,8 +49,8 @@ export default function Carousel() {
                     })
                 }
             </div>
-            <div className="w-full h-full">
-                <Image className="w-full h-full object-cover rounded-3xl" src={images[currentSection]} alt="why-choose-my-kinyozi" width={300} height={200} />
+            <div className="w-full h-full order-1 md:order-2">
+                <Image className="w-full h-60 object-cover rounded-3xl md:h-full" src={images[currentSection]} alt="why-choose-my-kinyozi" width={300} height={200} />
             </div>
         </div>
     )

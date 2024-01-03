@@ -39,15 +39,15 @@ export default function Expander() {
     return (
         <div className="flex flex-col justify-center items-center gap-5 w-full">
         {expanders.map((expander) => (
-            <div className="p-5 border-[0.1px] rounded-xl border-gray-600 flex flex-col w-full gap-1"   onClick={() => toggleExpander(expander.id)} key={uniqid()}>
+            <div className="p-5 border-[0.1px] rounded-xl border-gray-600 flex flex-col w-full gap-2"   onClick={() => toggleExpander(expander.id)} key={uniqid()}>
                 <div className="flex h-6 justify-between items-center">
-                    <p className="font-semibold text-[16px]">{questions[expander.id].qn}</p>
+                    <p className="text-base md:font-semibold md:text-[16px] mb-2">{questions[expander.id].qn}</p>
                     <div className="">
                         {expander.expanded ? <RxCaretUp color="white" size={40} /> : <RxCaretDown color="white" size={40} />}
                     </div>
                 </div>
                 {expander.expanded && (
-                    <div className="w-11/12 font-extralight text-[16px] text-gray-400">
+                    <div className="w-full text-justify font-extralight text-[16px] text-gray-400 md:w-11/12">
                     {questions[expander.id].ans}
                     </div>
                 )}
