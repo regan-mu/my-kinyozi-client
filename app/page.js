@@ -99,7 +99,7 @@ export default function Home() {
         <div className="relative w-full h-full hidden md:block">
           <Image className="object-cover" src="/contact-us.svg" alt="my kinyozi contact" fill={true} />
         </div>
-        <div className="flex flex-col gap-2 px-5 py-5 bg-accent md:px-10">
+        <div className="flex flex-col rounded-lg gap-2 px-5 py-10 bg-accent md:px-10 md:py-5 md:rounded-none">
           <h3 className="font-semibold text-2xl">Contact Us</h3>
           <p className="font-medium text-gray-400">We would love to hear from you.</p>
           <form className="flex flex-col gap-2 mt-5">
