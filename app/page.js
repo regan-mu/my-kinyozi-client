@@ -12,7 +12,7 @@ export default function Home() {
       <Header />
       <section className="w-full h-[85vh] grid grid-rows-1 mb-5  py-5 mt-20 md:grid-cols-2 md:mb-20">
         <div className="flex flex-col justify-center gap-4  h-full w-full">
-          <h2 className="font-extrabold md:font-bold text-5xl w-full">
+          <h2 className="font-extrabold leading-tight tracking-wide text-5xl w-full md:font-bold  md:tracking-normal">
             Elevate Your Barbershop Experience with <span className="text-secondary">Effortless Management</span>
           </h2>
           <p className="text-gray-300 font-thin text-lg p-0 md:text-base">
