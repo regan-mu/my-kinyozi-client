@@ -30,8 +30,8 @@ export default function Header() {
                         </Link>
                     </div>
                     <div className="h-auto flex flex-col text-xl gap-5 md:items-center md:h-full md:gap-10 md:flex-row font-thin md:text-base">
-                        <Link className="rounded-lg text-center py-2 border-[0.1px] border-secondary md:border-none md:rounded-none md:p-0" href="/">Log In</Link>
-                        <Link className="w-full text-center bg-secondary py-2 px-5 rounded-lg md:w-max hover:text-gray-200" href="/">Sign Up</Link>
+                        <Link className="rounded-lg text-center py-2 border-[0.1px] border-secondary md:border-none md:rounded-none md:p-0" href="/login">Log In</Link>
+                        <Link className="w-full text-center bg-secondary py-2 px-5 rounded-lg md:w-max hover:text-gray-200" href="/signup">Sign Up</Link>
                     </div>
                 </div>
                 <div className="h-full flex items-center md:hidden">
