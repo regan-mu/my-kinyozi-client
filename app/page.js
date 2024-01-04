@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <main className="bg-dark-blue h-auto px-5 md:px-14 font-poppins text-white">
       <Header />
-      <section className="w-full h-[85vh] grid grid-rows-1 mb-5  py-5 md:grid-cols-2 md:mb-20">
+      <section className="w-full h-[85vh] grid grid-rows-1 mb-5  py-5 mt-20 md:grid-cols-2 md:mb-20">
         <div className="flex flex-col justify-center gap-4  h-full w-full">
           <h2 className="font-extrabold md:font-bold text-5xl w-full">
             Elevate Your Barbershop Experience with <span className="text-secondary">Effortless Management</span>
@@ -18,7 +18,7 @@ export default function Home() {
           <p className="text-gray-300 font-thin text-lg p-0 md:text-base">
             Streamline Operations, Optimize Staff, and Enhance Customer Satisfaction.
           </p>
-          <Link className="bg-secondary w-max py-3 px-6 rounded-xl text-lg hover:text-gray-300 transition-all duration-100 ease-in md:py-2 md:px-4 md:text-base" href="/">Get Started</Link>
+          <Link className="bg-secondary w-max py-2 px-6 rounded-xl text-lg hover:text-gray-300 transition-all duration-100 ease-in md:px-4 md:text-base" href="/">Get Started</Link>
         </div>
         <div className="w-full hidden md:flex justify-end relative">
           <Image className="object-contain" src="/my-kinyozi-hero.svg" alt="my kinyozi hero" fill={true}/>

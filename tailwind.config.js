@@ -23,7 +23,7 @@ module.exports = {
         'roboto': ['Roboto', 'sans-serif']
       },
       height: {
-        'custom': 'calc(100vh - 96px)',
+        'custom': 'calc(100vh - 102px)',
       },
       fontWeight: {
         thin: 100,
