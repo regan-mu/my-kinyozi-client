@@ -89,7 +89,7 @@ export default function Home() {
       {/* FAQs */}
       <section className="mt-24">
         <h3 className="text-4xl font-bold mb-1 md:text-center">FAQs</h3>
-        <p className="text-gray-300 text-base md:text-center mb-10">
+        <p className="text-gray-300 text-base md:text-center mb-10 font-thin">
           Here are some of our most asked questions. If yours is not there, do not hesitate to contact us.
         </p>
         <Expander />

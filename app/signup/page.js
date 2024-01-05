@@ -6,7 +6,7 @@ export default function Signup() {
         <LoginSignupLayout>
             <div className="flex flex-col h-full">
                 <h2 className="text-xl font-bold">Sign Up</h2>
-                <p className="text-gray-400 font-thin  text-[14px] mb-5">
+                <p className="text-gray-400 font-thin  text-[14px] mb-5 md:mb-0">
                     Join now by creating your account in just a few simple steps.
                 </p>
                 <SignupForm />

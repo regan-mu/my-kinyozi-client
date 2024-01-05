@@ -1,10 +1,49 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import Cookies from "universal-cookie";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
     const [menuExpanded, setMenuExpanded] = useState(false);
+    const [authToken, setAuthToken] = useState(false);
+    const cookies = new Cookies();
+    const router = useRouter();
+
+    const logOut = () => {
+        cookies.remove("token", {path: "/", sameSite: "None", secure:true});
+        cookies.remove("public_id", {path: "/", sameSite: "None", secure:true});
+        cookies.remove("role", {path: "/", sameSite: "None", secure:true});
+        setAuthToken(false);
+        router.push("/");
+    }
+
+    // Logout out automatically if the token is expired
+    useEffect(() => {
+        const token = cookies.get("token");
+        setAuthToken(token);
+        const axiosConfig = {
+            method: "post",
+            url: "https://my-kinyozi-server.onrender.com/API/token/verify",
+            data: {token},
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }
+
+        if(token) {
+            axios(axiosConfig).then(
+                res => {
+                }
+            ).catch(err => {
+                logOut();
+            })
+        }
+
+    }, []);
+
     const toggleMenu = () => {
         setMenuExpanded(prev => !prev);
     }
@@ -30,8 +69,12 @@ export default function Header() {
                         </Link>
                     </div>
                     <div className="h-auto flex flex-col text-xl gap-5 md:items-center md:h-full md:gap-10 md:flex-row font-thin md:text-base">
-                        <Link className="rounded-lg text-center py-2 border-[0.1px] border-secondary md:border-none md:rounded-none md:p-0" href="/login">Log In</Link>
-                        <Link className="w-full text-center bg-secondary py-2 px-5 rounded-lg md:w-max hover:text-gray-200" href="/signup">Sign Up</Link>
+                        {!authToken ?
+                        <>
+                            <Link className="rounded-lg text-center py-2 border-[0.1px] border-secondary md:border-none md:rounded-none md:p-0" href="/login">Log In</Link>
+                            <Link className="w-full text-center bg-secondary py-2 px-5 rounded-lg md:w-max hover:text-gray-200" href="/signup">Sign Up</Link>
+                        </>: <button type="button" onClick={logOut}>Logout</button>
+                        }
                     </div>
                 </div>
                 <div className="h-full flex items-center md:hidden">
