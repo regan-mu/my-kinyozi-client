@@ -71,9 +71,9 @@ export default function LoginForm() {
                 <input ref={passwordRef} className="h-10 border-[0.1px] border-gray-500 rounded-lg p-2 outline-none bg-accent" required type="password" id="password" name="password" />
             </div>
             <div className="w-full mb-4 flex justify-end">
-                <Link className="font-thin text-sm hover:text-gray-300" href="/" >Forgot password</Link>
+                <Link className="font-thin text-sm hover:text-gray-300" href="/request-password-reset" >Forgot password</Link>
             </div>
-            <button disabled={formLoading} className="w-full bg-secondary py-2 rounded-sm cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:text-gray-300" type="submit">{formLoading ? <>Logging in</> : <>Login</>}</button>
+            <button disabled={formLoading} className="w-full bg-secondary py-2 rounded-lg cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:text-gray-300" type="submit">{formLoading ? <>Logging in</> : <>Login</>}</button>
             <div className="mt-5">
                 <span className="text-sm flex gap-2 justify-center">
                     Don`t have an account? 
