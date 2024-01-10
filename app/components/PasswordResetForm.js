@@ -20,6 +20,7 @@ export default function PasswordResetForm({token}) {
     }
 
     const submitForm = (e) => {
+        const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
         e.preventDefault();
         setResetError("");
         if (passwords.password !== passwords.confirmPassword) {
@@ -32,7 +33,8 @@ export default function PasswordResetForm({token}) {
                 url: `https://my-kinyozi-server.onrender.com/API/shop/password/reset/${token}`,
                 data: passwords,
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "X-API-KEY": API_KEY
                 }
             }
             axios(axiosConfig).then(

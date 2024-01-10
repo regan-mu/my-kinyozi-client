@@ -7,6 +7,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 
 export default function SignupForm() {
+    const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
     const [formError, setFormError] = useState("");
     const [formLoading, setFormLoading] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
@@ -44,7 +45,8 @@ export default function SignupForm() {
                     url: "https://my-kinyozi-server.onrender.com/API/create/shop",
                     data: formInput,
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "X-API-KEY": API_KEY
                     }
                 }
                 axios(axiosConfig).then(

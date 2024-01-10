@@ -6,7 +6,7 @@ import Cookies from "universal-cookie";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 
-export default function Header() {
+export default  function Header() {
     const [menuExpanded, setMenuExpanded] = useState(false);
     const [authToken, setAuthToken] = useState(false);
     const cookies = new Cookies();
@@ -22,22 +22,27 @@ export default function Header() {
 
     // Logout out automatically if the token is expired
     useEffect(() => {
+        const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
         const token = cookies.get("token");
         setAuthToken(token);
+        console.log(API_KEY);
         const axiosConfig = {
             method: "post",
             url: "https://my-kinyozi-server.onrender.com/API/token/verify",
             data: {token},
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "X-API-KEY": API_KEY
             }
         }
+
 
         if(token) {
             axios(axiosConfig).then(
                 res => {
                 }
             ).catch(err => {
+                console.log(err)
                 logOut();
             })
         }
@@ -53,7 +58,7 @@ export default function Header() {
             <nav className="flex justify-between text-gray-300 relative w-full h-full font-inter border-b border-gray-800">
                 <div className="flex w-24 h-full items-center justify-center">
                     <Link href="/">
-                        <h1 className="font-extrabold text-xl">Kinyozi</h1>
+                        <Image className="h-auto w-auto" src={"/my-kinyozi-logo.svg"} alt="My kinyozi logo" width={64} height={64} />
                     </Link>
                 </div>
                 <div className={menuExpanded ? "absolute flex-col h-custom py-10 px-5 top-full -right-5 justify-between w-screen bg-accent  flex ": "hidden justify-between md:flex md:p-0 md:flex-row md:right-0 md:top-0 md:h-full md:bg-dark-blue md:relative md:w-2/3"}>

@@ -17,6 +17,7 @@ export default function LoginForm() {
    
 
     const handleLogin = (e) => {
+        const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
         e.preventDefault();
         setFormLoading(true);
         setLoginError("");
@@ -28,7 +29,8 @@ export default function LoginForm() {
                 password: passwordRef.current.value
             },
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "X-API-KEY": API_KEY
             }
         }
 
