@@ -25,7 +25,6 @@ export default  function Header() {
         const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
         const token = cookies.get("token");
         setAuthToken(token);
-        console.log(API_KEY);
         const axiosConfig = {
             method: "post",
             url: "https://my-kinyozi-server.onrender.com/API/token/verify",
@@ -49,8 +48,8 @@ export default  function Header() {
 
     }, []);
 
-    const toggleMenu = () => {
-        setMenuExpanded(prev => !prev);
+    const closeMenu = () => {
+        setMenuExpanded(false);
     }
 
     return (
@@ -64,13 +63,13 @@ export default  function Header() {
                 <div className={menuExpanded ? "absolute flex-col h-custom py-10 px-5 top-full -right-5 justify-between w-screen bg-accent  flex ": "hidden justify-between md:flex md:p-0 md:flex-row md:right-0 md:top-0 md:h-full md:bg-dark-blue md:relative md:w-2/3"}>
                     <div className="h-full flex flex-col text-2xl gap-8  md:flex-row md:items-center md:gap-16 md:text-base font-semibold tracking-wide">
                         <Link className="hover:text-gray-200" href="#services-section">
-                            <p onClick={toggleMenu}>Services</p>
+                            <p onClick={closeMenu}>Services</p>
                         </Link>
                         <Link className="hover:text-gray-200" href="#about-section">
-                            <p onClick={toggleMenu}>About Us</p>
+                            <p onClick={closeMenu}>About Us</p>
                         </Link>
                         <Link className="hover:text-gray-200" href="#contact-section">
-                            <p onClick={toggleMenu}>Contact Us</p>
+                            <p onClick={closeMenu}>Contact Us</p>
                         </Link>
                     </div>
                     <div className="h-auto flex flex-col text-xl gap-5 md:items-center md:h-full md:gap-10 md:flex-row font-thin md:text-base">
@@ -84,8 +83,8 @@ export default  function Header() {
                 </div>
                 <div className="h-full flex items-center md:hidden">
                     {
-                        menuExpanded ? <Image onClick={toggleMenu} src="/open-menu.svg" alt="hamburger-icon" width={32} height={32} /> :
-                        <Image onClick={toggleMenu} src="/hamburger.svg" alt="hamburger-icon" width={32} height={32} />
+                        menuExpanded ? <Image onClick={closeMenu} src="/open-menu.svg" alt="hamburger-icon" width={32} height={32} /> :
+                        <Image onClick={() => {setMenuExpanded(true)}} src="/hamburger.svg" alt="hamburger-icon" width={32} height={32} />
                     }
                 </div>
             </nav>

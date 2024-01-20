@@ -50,7 +50,11 @@ export default function LoginForm() {
                 setFormLoading(false);
             }
         ).catch(err => {
-            setLoginError(err?.response?.data);
+            if (!err?.response?.status) {
+                setLoginError("Can't login. Please try again");
+            } else {
+                setLoginError(err?.response?.data);
+            }
             setFormLoading(false);
         }
         );

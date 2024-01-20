@@ -9,15 +9,15 @@ export default function LoginSignupLayout({children}) {
                     <div className="flex flex-col items-center">
                         <h4 className="font-bold text-2xl">Welcome</h4>
                         <p className="text-[14px] font-thin text-gray-400 text-center w-3/4">
-                            Welcome to the Barbershop Management System! We are here to simplify your daily operations, 
+                            Welcome to the Barbershop Management System. We want to simplify your daily operations, 
                             from appointment scheduling to inventory management. 
                             Let us make running your barbershop a breeze.
                         </p>
                     </div>
                 </div>
-                <div className="h-full rounded-xl bg-accent flex flex-col gap-2 px-5 py-10 md:p-8">
-                    <div className="w-full text-center">
-                        <h2 className="font-bold text-2xl">Kinyozi</h2>
+                <div className="h-full rounded-xl bg-accent flex flex-col gap-2 px-5 py-10 md:px-8 md:py-5">
+                    <div className="w-full flex h-auto justify-center items-center">
+                    <Image className="w-auto h-auto" src="/my-kinyozi-logo.svg" alt="my-kinyozi-logo" width={48} height={48} priority={true} />
                     </div>
                     {children}
                 </div>

@@ -6,7 +6,7 @@ export default function Login() {
         <LoginSignupLayout>
             <div className="flex flex-col ">
                 <h2 className="text-xl font-bold">Login</h2>
-                <p className="text-gray-400 font-thin text-[14px] mb-5">
+                <p className="text-gray-400 font-thin text-[14px] mb-3">
                     Enter your credentials to access your account securely.
                 </p>
                 <LoginForm />

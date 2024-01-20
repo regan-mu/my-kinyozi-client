@@ -18,7 +18,7 @@ export default function Home() {
           <p className="text-gray-300 font-thin text-lg p-0 md:text-base">
             Streamline Operations, Optimize Staff, and Enhance Customer Satisfaction.
           </p>
-          <Link className="bg-secondary w-max py-2 px-6 rounded-xl text-lg hover:text-gray-300 transition-all duration-100 ease-in md:px-4 md:text-base" href="/">Get Started</Link>
+          <Link className="bg-secondary w-max py-2 px-6 rounded-xl text-lg hover:text-gray-300 transition-all duration-100 ease-in md:px-4 md:text-base" href="/signup">Get Started</Link>
         </div>
         <div className="w-full hidden md:flex justify-end relative">
           <Image className="object-contain" src="/my-kinyozi-hero.svg" alt="my kinyozi hero" fill={true}/>
