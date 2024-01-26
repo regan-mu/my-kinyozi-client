@@ -28,7 +28,7 @@ export default function DeleteService({token}) {
             setPending(true);
             const axiosConfig = {
                 method: "delete",
-                url: `http://127.0.0.1:5000/API/service/delete/${idToModify}`,
+                url: `https://www.mykinyozi.com/API/service/delete/${idToModify}`,
                 data: {password: passwordRef.current.value},
                 headers: {
                     "Content-Type": "application/json",

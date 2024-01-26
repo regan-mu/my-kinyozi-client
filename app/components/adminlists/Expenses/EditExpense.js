@@ -36,7 +36,7 @@ export default function EditExpense ({token}) {
         setPending(true);
         const axiosConfig = {
             method: "put",
-            url: `http://127.0.0.1:5000/API/expense/update/${idToModify}`,
+            url: `https://www.mykinyozi.com/API/expense/update/${idToModify}`,
             data: formData,
             headers: {
                 "Content-Type": "application/json",

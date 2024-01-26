@@ -39,7 +39,7 @@ export default function ServiceUpdate({token}) {
         setPending(true);
         const axiosConfig = {
             method: "put",
-            url: `http://127.0.0.1:5000/API/service/update/${idToModify}`,
+            url: `https://www.mykinyozi.com/API/service/update/${idToModify}`,
             data: formData,
             headers: {
                 "Content-Type": "application/json",

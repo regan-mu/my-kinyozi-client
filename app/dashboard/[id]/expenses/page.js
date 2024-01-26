@@ -44,7 +44,7 @@ export default function Expenses ({params}) {
         const fetchData = async () => {
             const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
             try {
-            const response = await fetch(`http://127.0.0.1:5000/API/expenses/fetch/${params.id}`, {
+            const response = await fetch(`https://www.mykinyozi.com/API/expenses/fetch/${params.id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

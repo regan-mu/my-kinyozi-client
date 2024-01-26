@@ -29,7 +29,7 @@ export default function DeleteExpense({token}) {
             setPending(true);
             const axiosConfig = {
                 method: "delete",
-                url: `http://127.0.0.1:5000/API/expense/delete/${idToModify}`,
+                url: `https://www.mykinyozi.com/API/expense/delete/${idToModify}`,
                 data: {password: passwordRef.current.value},
                 headers: {
                     "Content-Type": "application/json",

@@ -42,7 +42,7 @@ export default function AddSale({token, id}) {
             setPending(true);
             const axiosConfig = {
                 method: "post",
-                url: `http://127.0.0.1:5000/API/sales/create/${id}`,
+                url: `https://www.mykinyozi.com/API/sales/create/${id}`,
                 data: formData,
                 headers: {
                     "Content-Type": "application/json",
