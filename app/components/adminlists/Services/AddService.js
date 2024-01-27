@@ -39,7 +39,7 @@ export default function AddService({id, token}) {
         setPending(true);
         const axiosConfig = {
             method: "post",
-            url: `https://www.mykinyozi.com/API/services/${id}/create-services`,
+            url: `https://my-kinyozi-server.onrender.com/API/services/${id}/create-services`,
             data: formData,
             headers: {
                 "Content-Type": "application/json",

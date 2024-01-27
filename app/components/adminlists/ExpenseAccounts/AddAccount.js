@@ -36,7 +36,7 @@ export default function AddExpenseAccount({token, id}) {
         setPending(true);
         const axiosConfig = {
             method: "post",
-            url: `https://www.mykinyozi.com/API/expense-account/create/${id}`,
+            url: `https://my-kinyozi-server.onrender.com/API/expense-account/create/${id}`,
             data: formData,
             headers: {
                 "Content-Type": "application/json",

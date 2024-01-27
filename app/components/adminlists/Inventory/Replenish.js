@@ -20,7 +20,7 @@ export default function ReplenishInventory({token}) {
             setPending(true);
             const axiosConfig = {
                 method: "put",
-                url: `https://www.mykinyozi.com/API/inventory/replenish/${idToModify}`,
+                url: `https://my-kinyozi-server.onrender.com/API/inventory/replenish/${idToModify}`,
                 data: {password: passwordRef.current.value},
                 headers: {
                     "Content-Type": "application/json",

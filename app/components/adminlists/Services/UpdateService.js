@@ -39,7 +39,7 @@ export default function ServiceUpdate({token}) {
         setPending(true);
         const axiosConfig = {
             method: "put",
-            url: `https://www.mykinyozi.com/API/service/update/${idToModify}`,
+            url: `https://my-kinyozi-server.onrender.com/API/service/update/${idToModify}`,
             data: formData,
             headers: {
                 "Content-Type": "application/json",

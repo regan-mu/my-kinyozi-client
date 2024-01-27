@@ -29,7 +29,7 @@ export default function DeleteAccount({token}) {
             setPending(true);
             const axiosConfig = {
                 method: "delete",
-                url: `https://www.mykinyozi.com/API/expense-accounts/delete/${idToModify}`,
+                url: `https://my-kinyozi-server.onrender.com/API/expense-accounts/delete/${idToModify}`,
                 data: {password: passwordRef.current.value},
                 headers: {
                     "Content-Type": "application/json",

@@ -15,7 +15,7 @@ export default function AccountsPage({token, id}) {
         const fetchData = async () => {
             const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
             try {
-            const response = await fetch(`https://www.mykinyozi.com/API/expense-accounts/fetch/${id}`, {
+            const response = await fetch(`https://my-kinyozi-server.onrender.com/API/expense-accounts/fetch/${id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

@@ -28,7 +28,7 @@ export default function DeleteEquipment({token}) {
             setPending(true);
             const axiosConfig = {
                 method: "delete",
-                url: `https://www.mykinyozi.com/API/equipments/remove/${idToModify}`,
+                url: `https://my-kinyozi-server.onrender.com/API/equipments/remove/${idToModify}`,
                 data: {password: passwordRef.current.value},
                 headers: {
                     "Content-Type": "application/json",

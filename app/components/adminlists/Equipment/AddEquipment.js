@@ -36,7 +36,7 @@ export default function AddEquipment({token, id}) {
         setPending(true);
         const axiosConfig = {
             method: "post",
-            url: `https://www.mykinyozi.com/API/equipments/create/${id}`,
+            url: `https://my-kinyozi-server.onrender.com/API/equipments/create/${id}`,
             data: formData,
             headers: {
                 "Content-Type": "application/json",

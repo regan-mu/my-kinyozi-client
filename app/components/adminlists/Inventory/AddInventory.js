@@ -37,7 +37,7 @@ export default function AddInventory({token, id}) {
         setPending(true);
         const axiosConfig = {
             method: "post",
-            url: `https://www.mykinyozi.com/API/inventory/create/${id}`,
+            url: `https://my-kinyozi-server.onrender.com/API/inventory/create/${id}`,
             data: formData,
             headers: {
                 "Content-Type": "application/json",

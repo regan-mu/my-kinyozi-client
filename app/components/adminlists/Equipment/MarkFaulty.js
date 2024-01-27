@@ -20,7 +20,7 @@ export default function MarkFaulty({token}) {
             setPending(true);
             const axiosConfig = {
                 method: "put",
-                url: `https://www.mykinyozi.com/API/equipments/faulty/${idToModify}`,
+                url: `https://my-kinyozi-server.onrender.com/API/equipments/faulty/${idToModify}`,
                 data: {password: passwordRef.current.value},
                 headers: {
                     "Content-Type": "application/json",

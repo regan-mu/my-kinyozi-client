@@ -25,7 +25,7 @@ export default function DeleteSale({token}) {
             setPending(true);
             const axiosConfig = {
                 method: "delete",
-                url: `https://www.mykinyozi.com/API/sales/delete/${saleIdToDelete}`,
+                url: `https://my-kinyozi-server.onrender.com/API/sales/delete/${saleIdToDelete}`,
                 data: {password: passwordRef.current.value},
                 headers: {
                     "Content-Type": "application/json",
