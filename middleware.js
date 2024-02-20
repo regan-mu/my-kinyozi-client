@@ -10,6 +10,11 @@ export async function middleware(request) {
 
   // Staff Page
   if (request.nextUrl.pathname.startsWith('/staff') && !'/staff/login'.includes(request.nextUrl.pathname)) {
+
+    if ('/staff/setup'.includes(request.nextUrl.pathname)) {
+      return;
+    }
+    
     if (!token) {
       // Redirect to login if the token doesn't exist
       return NextResponse.redirect(new URL('/staff/login', request.url));
