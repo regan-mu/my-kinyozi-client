@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 
 
 export default function Dasbboard({params}) {
-    const {setActivePage, setHomeData, homeData} = useContext(AdminContext);
+    const {setActivePage, setHomeData, homeData, setServices} = useContext(AdminContext);
     const [error, setError] = useState("");
     const router = useRouter();
 
@@ -19,6 +19,7 @@ export default function Dasbboard({params}) {
         axios(axiosConfig("get", `https://my-kinyozi-server.onrender.com/API/shop/${params.id}`, null)).then(
             res => {
                 setHomeData(res?.data);
+                setServices(res?.data?.services);
             }
         ).catch(err => {
             if (![404, 401].includes(err?.response?.status)) {
