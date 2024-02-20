@@ -2,13 +2,14 @@
 import { AdminContext } from "@/app/context/AdminContext";
 import {useContext, useEffect, useState} from "react";
 import Image from "next/image";
-import Cookies from "universal-cookie";
 import { EquipmentContext } from "@/app/context/EquipmentContext";
 import AddEquipment from "@/app/components/adminlists/Equipment/AddEquipment";
 import EquipmentList from "@/app/components/adminlists/Equipment/EquipmentList";
 import DeleteEquipment from "@/app/components/adminlists/Equipment/DeleteEquipment";
 import MarkFaulty from "@/app/components/adminlists/Equipment/MarkFaulty";
 import CurrencyFormatter from "@/app/Utils/CurrencyParser";
+import axios from "axios";
+import axiosConfig from "@/app/Utils/axiosRequestConfig";
 
 export default function Equipment({params}) {
     const {setActivePage, setEquipments,} = useContext(AdminContext);
@@ -19,40 +20,33 @@ export default function Equipment({params}) {
         oldest: "",
         newest: ""
     });
-
-    const cookies = new Cookies();
-    const token = cookies.get("token");
+    const [error, setError] = useState();
 
     // Fetch Data
     useEffect(() => {
         setActivePage("Equipment");
         const fetchData = async () => {
-            const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
-            try {
-                const response = await fetch(`https://my-kinyozi-server.onrender.com/API/equipments/fetch/all/${params.id}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-API-KEY': API_KEY,
-                        'x-access-token': token
-                    },
-                    next: { tags: ["equipment"] }
-                });
-                const data = await response.json();
-                setEquipments(data?.equipments);
-                setEquipmentStats(data?.stats);
-            } catch (error) {
-            console.log(error);
-            }
+            axios(axiosConfig("get", `https://my-kinyozi-server.onrender.com/API/equipments/fetch/all/${params.id}`, null)).then(
+                res => {
+                    setEquipments(res?.data?.equipments);
+                    setEquipmentStats(res?.data?.stats);
+                }
+            ).catch(err => {
+                if (![404, 401].includes(err?.response?.status)) {
+                    setError("Something went wrong. Try Again");
+                } else {
+                    setError(err?.response?.data?.message);
+                }
+            });
         };
         fetchData();
     }, [modifySuccess]);
 
     return (
         <div className="flex flex-col text-white md:p-5">
-            {addEquipment && <AddEquipment id={params.id} token={token} />}
-            {equipmentActions === "delete" && <DeleteEquipment token={token} />}
-            {equipmentActions === "faulty" && <MarkFaulty token={token} />}
+            {addEquipment && <AddEquipment id={params.id} />}
+            {equipmentActions === "delete" && <DeleteEquipment />}
+            {equipmentActions === "faulty" && <MarkFaulty />}
             <div className="w-full h-20 flex justify-between items-center border-b-[0.1px] border-gray-800">
                 <h3 className="font-extralight text-4xl">Equipment</h3>
                 <button onClick={() => {setAddEquipment(true)}} type="button" className="flex gap-2 bg-secondary w-max h-10 items-center px-6 rounded-3xl">

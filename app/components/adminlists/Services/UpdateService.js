@@ -3,8 +3,9 @@ import Image from "next/image";
 import { ServiceContext } from "@/app/context/ServicesContext";
 import { AdminContext } from "@/app/context/AdminContext";
 import axios from "axios";
+import axiosConfig from "@/app/Utils/axiosRequestConfig";
 
-export default function ServiceUpdate({token}) {
+export default function ServiceUpdate() {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     const [pending, setPending] = useState(false);
@@ -34,20 +35,9 @@ export default function ServiceUpdate({token}) {
 
     // Update Service
     const update = (e) => {
-        const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
         e.preventDefault();
         setPending(true);
-        const axiosConfig = {
-            method: "put",
-            url: `https://my-kinyozi-server.onrender.com/API/service/update/${idToModify}`,
-            data: formData,
-            headers: {
-                "Content-Type": "application/json",
-                "X-API-KEY": API_KEY,
-                "x-access-token": token
-            }
-        }
-        axios(axiosConfig).then(
+        axios(axiosConfig("put", `https://my-kinyozi-server.onrender.com/API/service/update/${idToModify}`, formData)).then(
             res => {
                 setSuccess(res?.data?.message);
                 setModifySuccessful(prev => !prev);

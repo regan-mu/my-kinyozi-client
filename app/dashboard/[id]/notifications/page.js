@@ -1,40 +1,34 @@
 "use client";
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { AdminContext } from "@/app/context/AdminContext";
 import NotificationsList from "@/app/components/adminlists/Notifications/NotificationsList";
-import Cookies from "universal-cookie";
 import { NotificationsContext } from "@/app/context/NotificationsContext";
 import OpenNotification from "@/app/components/adminlists/Notifications/OpenNotification";
+import axios from "axios";
+import axiosConfig from "@/app/Utils/axiosRequestConfig";
 
 export default function Notifications({params}) {
-    const cookies = new Cookies();
-    const token = cookies.get("token");
     const {setActivePage, setNotifications} = useContext(AdminContext);
-    const {openNotification} = useContext(NotificationsContext);
+    const {openNotification, notificationMutation} = useContext(NotificationsContext);
+    const [error, setError] = useState("");
 
     useEffect(() => {
         setActivePage("Notifications");
         const fetchData = async () => {
-            const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
-            try {
-            const response = await fetch(`https://my-kinyozi-server.onrender.com/API/notifications/fetch/all/${params.id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-API-KEY': API_KEY,
-                    'x-access-token': token
-                },
-                next: { tags: ["inventory"] }
+            axios(axiosConfig("get", `https://my-kinyozi-server.onrender.com/API/notifications/fetch/all/${params.id}`, null)).then(
+                res => {
+                    setNotifications(res?.data?.notifications);
+                }
+            ).catch(err => {
+                if (![404, 401].includes(err?.response?.status)) {
+                    setError("Something went wrong. Try Again");
+                } else {
+                    setError(err?.response?.data?.message);
+                }
             });
-    
-            const data = await response.json();
-            setNotifications(data.notifications);
-            } catch (error) {
-            console.log(error);
-            }
         };
         fetchData();
-    }, []);
+    }, [notificationMutation]);
 
     return (
         <div className="flex flex-col text-white md:p-5">

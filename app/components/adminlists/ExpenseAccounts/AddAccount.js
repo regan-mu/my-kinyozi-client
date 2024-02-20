@@ -2,13 +2,15 @@ import Image from "next/image";
 import { ExpensesContext } from "@/app/context/ExpensesContext";
 import { useContext, useState } from "react";
 import axios from "axios";
+import axiosConfig from "@/app/Utils/axiosRequestConfig";
 
-export default function AddExpenseAccount({token, id}) {
+export default function AddExpenseAccount({id}) {
     const {setAddExpenseAccount, setRefetchAccounts} = useContext(ExpensesContext);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     const [pending, setPending] = useState(false);
 
+    // Closed the Add Account Popup
     const closeAddForm = () => {
         setAddExpenseAccount(false);
     }
@@ -31,20 +33,9 @@ export default function AddExpenseAccount({token, id}) {
     };
 
     const createAccount = (e) => {
-        const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
         e.preventDefault();
         setPending(true);
-        const axiosConfig = {
-            method: "post",
-            url: `https://my-kinyozi-server.onrender.com/API/expense-account/create/${id}`,
-            data: formData,
-            headers: {
-                "Content-Type": "application/json",
-                "X-API-KEY": API_KEY,
-                "x-access-token": token
-            }
-        }
-        axios(axiosConfig).then(
+        axios(axiosConfig("post", `https://my-kinyozi-server.onrender.com/API/expense-account/create/${id}`, formData)).then(
             res => {
                 setSuccess(res?.data?.message);
                 setFormData({

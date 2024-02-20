@@ -2,8 +2,9 @@ import { useState, useContext, useRef } from "react";
 import Image from "next/image";
 import { InventoryContext } from "@/app/context/InventoryContext";
 import axios from "axios";
+import axiosConfig from "@/app/Utils/axiosRequestConfig";
 
-export default function ReplenishInventory({token}) {
+export default function ReplenishInventory() {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     const [pending, setPending] = useState(false);
@@ -13,23 +14,11 @@ export default function ReplenishInventory({token}) {
     // Delete Product
     const replenishProduct = (e) => {
         e.preventDefault();
-        const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
         if (passwordRef.current.value === "") {
             setError("Password is Empty");
         } else {
             setPending(true);
-            const axiosConfig = {
-                method: "put",
-                url: `https://my-kinyozi-server.onrender.com/API/inventory/replenish/${idToModify}`,
-                data: {password: passwordRef.current.value},
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-API-KEY": API_KEY,
-                    "x-access-token": token
-                }
-            }
-
-            axios(axiosConfig).then(
+            axios(axiosConfig("put", `https://my-kinyozi-server.onrender.com/API/inventory/replenish/${idToModify}`, {password: passwordRef.current.value})).then(
                 res => {
                     setSuccess(res?.data?.message);
                     passwordRef.current.value = "";

@@ -2,6 +2,7 @@ import Image from "next/image";
 import { EquipmentContext } from "@/app/context/EquipmentContext";
 import { useContext, useState } from "react";
 import axios from "axios";
+import axiosConfig from "@/app/Utils/axiosRequestConfig";
 
 export default function AddEquipment({token, id}) {
     const {setAddEquipment, setModifySuccess} = useContext(EquipmentContext);
@@ -32,19 +33,8 @@ export default function AddEquipment({token, id}) {
     // Add Equipment
     const createEquipment = (e) => {
         e.preventDefault();
-        const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
         setPending(true);
-        const axiosConfig = {
-            method: "post",
-            url: `https://my-kinyozi-server.onrender.com/API/equipments/create/${id}`,
-            data: formData,
-            headers: {
-                "Content-Type": "application/json",
-                "X-API-KEY": API_KEY,
-                "x-access-token": token
-            }
-        }
-        axios(axiosConfig).then(
+        axios(axiosConfig("post", `https://my-kinyozi-server.onrender.com/API/equipments/create/${id}`, formData)).then(
             res => {
                 setSuccess(res?.data?.message);
                 setPending(false);

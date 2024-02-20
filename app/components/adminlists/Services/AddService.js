@@ -2,8 +2,9 @@ import Image from "next/image";
 import { useState, useContext } from "react";
 import axios from "axios";
 import { ServiceContext } from "@/app/context/ServicesContext";
+import axiosConfig from "@/app/Utils/axiosRequestConfig";
 
-export default function AddService({id, token}) {
+export default function AddService({id}) {
     const {setAddService, setModifySuccessful} = useContext(ServiceContext);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
@@ -34,20 +35,9 @@ export default function AddService({id, token}) {
 
     // Create new Service
     const createService = (e) => {
-        const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
         e.preventDefault();
         setPending(true);
-        const axiosConfig = {
-            method: "post",
-            url: `https://my-kinyozi-server.onrender.com/API/services/${id}/create-services`,
-            data: formData,
-            headers: {
-                "Content-Type": "application/json",
-                "X-API-KEY": API_KEY,
-                "x-access-token": token
-            }
-        }
-        axios(axiosConfig).then(
+        axios(axiosConfig("post", `https://my-kinyozi-server.onrender.com/API/services/${id}/create-services`, formData)).then(
             res => {
                 setSuccess(res?.data?.message);
                 setFormData({

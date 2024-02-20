@@ -3,6 +3,7 @@ import Image from "next/image";
 import { EquipmentContext } from "@/app/context/EquipmentContext";
 import { AdminContext } from "@/app/context/AdminContext";
 import axios from "axios";
+import axiosConfig from "@/app/Utils/axiosRequestConfig";
 
 export default function DeleteEquipment({token}) {
     const [error, setError] = useState("");
@@ -21,23 +22,11 @@ export default function DeleteEquipment({token}) {
 
     const deleteEquipment = (e) => {
         e.preventDefault();
-        const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
         if (passwordRef.current.value === "") {
             setError("Password is Empty");
         } else {
             setPending(true);
-            const axiosConfig = {
-                method: "delete",
-                url: `https://my-kinyozi-server.onrender.com/API/equipments/remove/${idToModify}`,
-                data: {password: passwordRef.current.value},
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-API-KEY": API_KEY,
-                    "x-access-token": token
-                }
-            }
-
-            axios(axiosConfig).then(
+            axios(axiosConfig("delete", `https://my-kinyozi-server.onrender.com/API/equipments/remove/${idToModify}`, null)).then(
                 res => {
                     setSuccess(res?.data?.message);
                     passwordRef.current.value = "";

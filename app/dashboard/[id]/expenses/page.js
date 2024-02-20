@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
-import Cookies from "universal-cookie";
 import uniqid from "uniqid";
 import { ExpensesContext } from "@/app/context/ExpensesContext";
 import AddExpense from "@/app/components/adminlists/Expenses/AddExpense";
@@ -10,15 +9,16 @@ import ExpenseList from "@/app/components/adminlists/Expenses/ExpensesList";
 import DeleteExpense from "@/app/components/adminlists/Expenses/DeleteExpense";
 import EditExpense from "@/app/components/adminlists/Expenses/EditExpense";
 import AccountsPage from "@/app/components/adminlists/ExpenseAccounts/AccountsPage";
+import axios from "axios";
+import axiosConfig from "@/app/Utils/axiosRequestConfig";
 
 export default function Expenses ({params}) {
-    const {addExpense, setAddExpense, expenseActions, setExpenseAccounts, modifySuccessful} = useContext(ExpensesContext);
+    const {addExpense, setAddExpense, expenseActions, setExpenseAccounts, modifySuccessful, addExpenseAccount} = useContext(ExpensesContext);
     const { expenses, setExpenses, setActivePage, activeExpensesTab} = useContext(AdminContext);
-    const cookies = new Cookies();
-    const token = cookies.get("token");
     const [years, setYears] = useState([]);
     const [queryMonth, setQueryMonth] = useState("all");
     const [queryYear, setQueryYear] = useState("all");
+    const [error, setError] = useState("");
 
     // Handle Month Dropdown
     const handleMonth = (e) => {
@@ -41,37 +41,32 @@ export default function Expenses ({params}) {
 
     useEffect(() => {
         setActivePage("Expenses");
+        // Fetch Expenses Data
         const fetchData = async () => {
-            const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
-            try {
-            const response = await fetch(`https://my-kinyozi-server.onrender.com/API/expenses/fetch/${params.id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-API-KEY': API_KEY,
-                    'x-access-token': token
-                },
-                next: { tags: ["expenses"] }
+            axios(axiosConfig("get", `https://my-kinyozi-server.onrender.com/API/expenses/fetch/${params.id}`, null)).then(
+                res => {
+                    setExpenses(res?.data?.expenses);
+                    setYears(res?.data?.years);
+                    setExpenseAccounts(res?.data?.accounts);
+                }
+            ).catch(err => {
+                if (![404, 401].includes(err?.response?.status)) {
+                    setError("Something went wrong. Try Again");
+                } else {
+                    setError(err?.response?.data?.message);
+                }
             });
-    
-            const data = await response.json();
-            setExpenses(data.expenses);
-            setYears(data.years);
-            setExpenseAccounts(data.accounts);
-            } catch (error) {
-            console.log(error);
-            }
         };
         fetchData();
-    }, [modifySuccessful]);
+    }, [modifySuccessful, addExpenseAccount]);
 
     return (
         <>
         { activeExpensesTab === "expenses" ?
             <div className="flex flex-col text-white p-5 pt-0">
-                {addExpense && <AddExpense id={params.id} token={token} />}
-                {expenseActions === "delete" && <DeleteExpense token={token} />}
-                {expenseActions === "edit" && <EditExpense token={token} />}
+                {addExpense && <AddExpense id={params.id} />}
+                {expenseActions === "delete" && <DeleteExpense />}
+                {expenseActions === "edit" && <EditExpense />}
                 <div className="w-full h-20 flex justify-between items-center border-b-[0.1px] border-gray-800">
                     <h3 className="font-extralight text-4xl">Expenses</h3>
                     <div className="flex gap-5 h-full items-center">
@@ -108,7 +103,7 @@ export default function Expenses ({params}) {
                     <ExpenseList data={filteredData} />
                 </div>
             </div>:
-            <AccountsPage token={token} id={params.id} />
+            <AccountsPage id={params.id} />
         }
         </>
     )

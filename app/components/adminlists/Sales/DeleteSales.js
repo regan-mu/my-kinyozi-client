@@ -3,6 +3,7 @@ import {useContext, useRef, useState} from "react";
 import { SalesContext } from "@/app/context/SalesContext";
 import { AdminContext } from "@/app/context/AdminContext";
 import axios from "axios";
+import axiosConfig from "@/app/Utils/axiosRequestConfig";
 
 export default function DeleteSale({token}) {
     const {setSales} = useContext(AdminContext);
@@ -18,23 +19,11 @@ export default function DeleteSale({token}) {
     }
     const deleteSale = (e) => {
         e.preventDefault();
-        const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
-        if (passwordRef.current.value === "") {
+        if (passwordRef?.current?.value === "") {
             setError("Password is Empty");
         } else {
             setPending(true);
-            const axiosConfig = {
-                method: "delete",
-                url: `https://my-kinyozi-server.onrender.com/API/sales/delete/${saleIdToDelete}`,
-                data: {password: passwordRef.current.value},
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-API-KEY": API_KEY,
-                    "x-access-token": token
-                }
-            }
-
-            axios(axiosConfig).then(
+            axios(axiosConfig("delete", `https://my-kinyozi-server.onrender.com/API/sales/delete/${saleIdToDelete}`, {password: passwordRef.current.value})).then(
                 res => {
                     setSuccess(res?.data?.message);
                     passwordRef.current.value = "";

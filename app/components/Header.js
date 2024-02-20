@@ -11,6 +11,8 @@ export default  function Header() {
     const [authToken, setAuthToken] = useState(false);
     const cookies = new Cookies();
     const router = useRouter();
+    const user_id = cookies.get("public_id");
+    const role = cookies.get("role");
 
     const logOut = () => {
         cookies.remove("token", {path: "/", sameSite: "None", secure:true});
@@ -41,7 +43,6 @@ export default  function Header() {
                 res => {
                 }
             ).catch(err => {
-                console.log(err)
                 logOut();
             })
         }
@@ -77,7 +78,15 @@ export default  function Header() {
                         <>
                             <Link className="rounded-lg text-center py-2 border-[0.1px] border-secondary md:border-none md:rounded-none md:p-0" href="/login">Log In</Link>
                             <Link className="w-full text-center bg-secondary py-2 px-5 rounded-lg md:w-max hover:text-gray-200" href="/signup">Sign Up</Link>
-                        </>: <button type="button" onClick={logOut}>Logout</button>
+                        </>: 
+                        <>
+                            {
+                                !role ? <Link className="w-full text-center bg-secondary py-2 px-5 rounded-lg md:w-max hover:text-gray-200" href={`/dashboard/${user_id}`}>Dashboard</Link> : 
+                                <Link className="w-full text-center bg-secondary py-2 px-5 rounded-lg md:w-max hover:text-gray-200" href={`/staff/${user_id}`}>Account</Link>
+                            }
+                            <button type="button" onClick={logOut}>Logout</button>
+
+                        </>
                         }
                     </div>
                 </div>

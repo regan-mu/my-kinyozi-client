@@ -3,8 +3,9 @@ import Image from "next/image";
 import { ExpensesContext } from "@/app/context/ExpensesContext";
 import { AdminContext } from "@/app/context/AdminContext";
 import axios from "axios";
+import axiosConfig from "@/app/Utils/axiosRequestConfig";
 
-export default function EditExpense ({token}) {
+export default function EditExpense () {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     const [pending, setPending] = useState(false);
@@ -32,20 +33,9 @@ export default function EditExpense ({token}) {
     // Handle Expense Edit
     const editExpense = (e) => {
         e.preventDefault();
-        const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
         setPending(true);
-        const axiosConfig = {
-            method: "put",
-            url: `https://my-kinyozi-server.onrender.com/API/expense/update/${idToModify}`,
-            data: formData,
-            headers: {
-                "Content-Type": "application/json",
-                "X-API-KEY": API_KEY,
-                "x-access-token": token
-            }
-        }
 
-        axios(axiosConfig).then(
+        axios(axiosConfig("put", `https://my-kinyozi-server.onrender.com/API/expense/update/${idToModify}`, formData)).then(
             res => {
                 setSuccess(res?.data?.message);
                 setPending(false);

@@ -13,23 +13,12 @@ export default function MarkFaulty({token}) {
 
     const markEquipment = (e) => {
         e.preventDefault();
-        const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
         if (passwordRef.current.value === "") {
             setError("Password is Empty");
         } else {
             setPending(true);
-            const axiosConfig = {
-                method: "put",
-                url: `https://my-kinyozi-server.onrender.com/API/equipments/faulty/${idToModify}`,
-                data: {password: passwordRef.current.value},
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-API-KEY": API_KEY,
-                    "x-access-token": token
-                }
-            }
 
-            axios(axiosConfig).then(
+            axios(axiosConfig("put", `https://my-kinyozi-server.onrender.com/API/equipments/faulty/${idToModify}`, {password: passwordRef.current.value})).then(
                 res => {
                     setSuccess(res?.data?.message);
                     passwordRef.current.value = "";

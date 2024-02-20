@@ -2,8 +2,9 @@ import { InventoryContext } from "@/app/context/InventoryContext";
 import Image from "next/image";
 import { useContext, useState } from "react";
 import axios from "axios";
+import axiosConfig from "@/app/Utils/axiosRequestConfig";
 
-export default function AddInventory({token, id}) {
+export default function AddInventory({id}) {
     const {setAddInventory, setModifySuccessful} = useContext(InventoryContext);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
@@ -32,20 +33,9 @@ export default function AddInventory({token, id}) {
     };
 
     const recordInventory = (e) => {
-        const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
         e.preventDefault();
         setPending(true);
-        const axiosConfig = {
-            method: "post",
-            url: `https://my-kinyozi-server.onrender.com/API/inventory/create/${id}`,
-            data: formData,
-            headers: {
-                "Content-Type": "application/json",
-                "X-API-KEY": API_KEY,
-                "x-access-token": token
-            }
-        }
-        axios(axiosConfig).then(
+        axios(axiosConfig("post", `https://my-kinyozi-server.onrender.com/API/inventory/create/${id}`, formData)).then(
             res => {
                 console.log(formData)
                 setSuccess(res?.data?.message);
@@ -70,8 +60,8 @@ export default function AddInventory({token, id}) {
         <div className="bg-black bg-opacity-70 py-10 fixed w-full h-screen top-0 left-0 z-20 flex justify-center items-center">
             <div className="bg-dark-blue border-[0.1px] border-accent  flex flex-col gap-5 w-96 h-80 p-5 rounded-xl text-white relative">
                 <div className="w-full h-auto flex justify-between items-center">
-                {error && <div className="w-full h-10 text-sm absolute left-0 -top-5 rounded-md flex items-center justify-center font-semibold bg-red-200 text-red-600">{error}</div> }
-                {success && <div className="w-full h-10 text-sm absolute left-0 -top-5 rounded-md flex items-center justify-center font-semibold bg-green-200 text-green-800">{success}</div>}
+                    {error && <div className="w-full h-10 text-sm absolute left-0 -top-5 rounded-md flex items-center justify-center font-semibold bg-red-200 text-red-600">{error}</div> }
+                    {success && <div className="w-full h-10 text-sm absolute left-0 -top-5 rounded-md flex items-center justify-center font-semibold bg-green-200 text-green-800">{success}</div>}
                     <h3 className="font-semibold text-lg">Record Inventory</h3>
                     <Image onClick={closeAddForm} className="w-[16px] h-[16px] cursor-pointer" src="/open-menu.svg" alt="close" width={16} height={16} />
                 </div>

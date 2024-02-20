@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function LoginSignupLayout({children}) {
     return (
@@ -17,7 +18,9 @@ export default function LoginSignupLayout({children}) {
                 </div>
                 <div className="h-full rounded-xl bg-accent flex flex-col gap-2 px-5 py-10 md:px-8 md:py-5">
                     <div className="w-full flex h-auto justify-center items-center">
-                    <Image className="w-auto h-auto" src="/my-kinyozi-logo.svg" alt="my-kinyozi-logo" width={48} height={48} priority={true} />
+                        <Link href="/">
+                            <Image className="w-auto h-auto" src="/my-kinyozi-logo.svg" alt="my-kinyozi-logo" width={48} height={48} priority={true} />
+                        </Link>
                     </div>
                     {children}
                 </div>

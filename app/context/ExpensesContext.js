@@ -1,3 +1,4 @@
+// Manage Context for Expenses and Expense Accounts.
 import {createContext, useState} from "react";
 
 export const ExpensesContext = createContext();

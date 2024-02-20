@@ -3,8 +3,9 @@ import { useState, useContext } from "react";
 import { ExpensesContext } from "@/app/context/ExpensesContext";
 import uniqid from "uniqid";
 import axios from "axios";
+import axiosConfig from "@/app/Utils/axiosRequestConfig";
 
-export default function AddExpense({id, token}) {
+export default function AddExpense({id}) {
     const {setAddExpense, expenseAccounts, setModifySuccessful} = useContext(ExpensesContext);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
@@ -36,23 +37,12 @@ export default function AddExpense({id, token}) {
 
     //Post New Sale
     const recordExpense = (e) => {
-        const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
         e.preventDefault();
         if (formData.expenseAccount == "") {
             setError("Payment Method is Empty");
         } else {
             setPending(true);
-            const axiosConfig = {
-                method: "post",
-                url: `https://my-kinyozi-server.onrender.com/API/expense/create/${id}`,
-                data: formData,
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-API-KEY": API_KEY,
-                    "x-access-token": token
-                }
-            }
-            axios(axiosConfig).then(
+            axios(axiosConfig("post", `https://my-kinyozi-server.onrender.com/API/expense/create/${id}`, formData)).then(
                 res => {
                     setSuccess(res?.data?.message);
                     setFormData({
@@ -81,8 +71,8 @@ export default function AddExpense({id, token}) {
         <div className="bg-black bg-opacity-70 py-10 fixed w-full h-screen top-0 left-0 z-20 flex justify-center items-center">
             <div className="bg-dark-blue border-[0.1px] border-accent  flex flex-col gap-5 w-96 h-full p-5 rounded-xl text-white relative">
                 <div className="w-full h-auto flex justify-between items-center">
-                {error && <div className="w-full h-10 text-sm absolute left-0 -top-5 rounded-md flex items-center justify-center font-semibold bg-red-200 text-red-600">{error}</div> }
-                {success && <div className="w-full h-10 text-sm absolute left-0 -top-5 rounded-md flex items-center justify-center font-semibold bg-green-200 text-green-800">{success}</div>}
+                    {error && <div className="w-full h-10 text-sm absolute left-0 -top-5 rounded-md flex items-center justify-center font-semibold bg-red-200 text-red-600">{error}</div> }
+                    {success && <div className="w-full h-10 text-sm absolute left-0 -top-5 rounded-md flex items-center justify-center font-semibold bg-green-200 text-green-800">{success}</div>}
                     <h3 className="font-semibold text-lg">New Expense</h3>
                     <Image onClick={closeAddForm} className="w-[16px] h-[16px] cursor-pointer" src="/open-menu.svg" alt="close" width={16} height={16} />
                 </div>

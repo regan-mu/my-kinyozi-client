@@ -2,3 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/* Customize the REACT BIG CALENDER */
+.rbc-btn-group {
+    background-color: #7f56d9;
+    border: none;
+}
+.rbc-btn-group button {
+    color: #fff !important;
+}
+.rbc-toolbar button.rbc-active {
+    color: #000 !important;
+}
+.rbc-event {
+    background-color: #7f56d9 !important;
+}
+.rbc-off-range-bg {
+    background-color: #b8b8b8 !important;
+}
+.custom-current-day {
+    background-color: #e4e4e4 !important;
+}

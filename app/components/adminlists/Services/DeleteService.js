@@ -3,8 +3,9 @@ import Image from "next/image";
 import { ServiceContext } from "@/app/context/ServicesContext";
 import { AdminContext } from "@/app/context/AdminContext";
 import axios from "axios";
+import axiosConfig from "@/app/Utils/axiosRequestConfig";
 
-export default function DeleteService({token}) {
+export default function DeleteService() {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     const [pending, setPending] = useState(false);
@@ -12,7 +13,7 @@ export default function DeleteService({token}) {
     const {setServices} = useContext(AdminContext);
     const passwordRef = useRef();
 
-    // Update the expenses list after deletion
+    // Update the services list after deletion
     const filterOutDeleted = () => {
         setServices(prev => {
             return prev.filter(val => {return val.id != idToModify });
@@ -21,23 +22,11 @@ export default function DeleteService({token}) {
 
     const deleteService = (e) => {
         e.preventDefault();
-        const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
         if (passwordRef.current.value === "") {
             setError("Password is Empty");
         } else {
-            setPending(true);
-            const axiosConfig = {
-                method: "delete",
-                url: `https://my-kinyozi-server.onrender.com/API/service/delete/${idToModify}`,
-                data: {password: passwordRef.current.value},
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-API-KEY": API_KEY,
-                    "x-access-token": token
-                }
-            }
-
-            axios(axiosConfig).then(
+            setPending(true); 
+            axios(axiosConfig("delete", `https://my-kinyozi-server.onrender.com/API/service/delete/${idToModify}`, {password: passwordRef.current.value})).then(
                 res => {
                     setSuccess(res?.data?.message);
                     passwordRef.current.value = "";
@@ -47,8 +36,8 @@ export default function DeleteService({token}) {
                 }
             ).catch(
                 err => {
-                    if (!err?.response?.status) {
-                        setError("Failed. Please try again");
+                    if(![404, 401, 409].includes(err?.response?.status)) {
+                        setError("Something went wrong. Try Again");
                     } else {
                         setError(err?.response?.data?.message);
                     }

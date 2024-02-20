@@ -1,15 +1,42 @@
 import Image from "next/image";
 import { useState, useContext } from "react";
 import { NotificationsContext } from "@/app/context/NotificationsContext";
+import axios from "axios";
+import axiosConfig from "@/app/Utils/axiosRequestConfig";
 
 export default function OpenNotification() {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
-    const {setOpenNotification, currentNotification, setCurrentNotification} = useContext(NotificationsContext);
+    const {setOpenNotification, currentNotification, setCurrentNotification, setNotificationMutation} = useContext(NotificationsContext);
 
-    const handleRead = () => {
-        // Include the function in the 
-        setCurrentNotification(prev => {return {...prev, read: true}});
+    // Mark Notification as read.
+    const readNotification = () => {
+        axios(axiosConfig("put", `https://my-kinyozi-server.onrender.com/API/notifications/read/${currentNotification?.id}`, null)).then(
+           res => {
+            setSuccess(res?.data?.message);
+            setNotificationMutation(prev => !prev);
+            setCurrentNotification(prev => {return {...prev, read: true}});
+        }).catch(
+            err => {
+                setError(err?.response?.data?.message);
+            }
+        )
+    }
+
+    // Delete Notification.
+    const deleteNotification = () => {
+        axios(axiosConfig("delete", `https://my-kinyozi-server.onrender.com/API/notifications/delete/${currentNotification?.id}`, null)).then(
+           res => {
+            setSuccess(res?.data?.message);
+            setNotificationMutation(prev => !prev);
+            setOpenNotification(false);
+            setCurrentNotification({});
+
+        }).catch(
+            err => {
+                setError(err?.response?.data?.message);
+            }
+        )
     }
     
     return (
@@ -27,8 +54,8 @@ export default function OpenNotification() {
                     <p className="text-xs font-thin"><span className="text-secondary font-semibold">Sent on: </span>{currentNotification?.created_at}</p>
                 </div>
                 <div className="w-full h-20 flex justify-between items-center">
-                    <button className="px-8 text-sm py-2 rounded-full cursor-pointer bg-red-700">Delete</button>
-                    {!currentNotification.read && <button onClick={handleRead} className="px-8 text-sm py-2 rounded-full bg-gray-700 cursor-pointer">Mark as Read</button>}
+                    <button onClick={deleteNotification} className="px-8 text-sm py-2 rounded-full cursor-pointer bg-red-700">Delete</button>
+                    {!currentNotification.read && <button onClick={readNotification} className="px-8 text-sm py-2 rounded-full bg-gray-700 cursor-pointer">Mark as Read</button>}
                 </div>
             </div>
         </div>

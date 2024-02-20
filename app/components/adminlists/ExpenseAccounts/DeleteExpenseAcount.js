@@ -3,8 +3,9 @@ import Image from "next/image";
 import { ExpensesContext } from "@/app/context/ExpensesContext";
 import { AdminContext } from "@/app/context/AdminContext";
 import axios from "axios";
+import axiosConfig from "@/app/Utils/axiosRequestConfig";
 
-export default function DeleteAccount({token}) {
+export default function DeleteAccount() {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     const [pending, setPending] = useState(false);
@@ -22,23 +23,11 @@ export default function DeleteAccount({token}) {
     // Handle expense Deletion
     const deleteExpense = (e) => {
         e.preventDefault();
-        const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
         if (passwordRef.current.value === "") {
             setError("Password is Empty");
         } else {
             setPending(true);
-            const axiosConfig = {
-                method: "delete",
-                url: `https://my-kinyozi-server.onrender.com/API/expense-accounts/delete/${idToModify}`,
-                data: {password: passwordRef.current.value},
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-API-KEY": API_KEY,
-                    "x-access-token": token
-                }
-            }
-
-            axios(axiosConfig).then(
+            axios(axiosConfig("delete", `https://my-kinyozi-server.onrender.com/API/expense-accounts/delete/${idToModify}`, {password: passwordRef.current.value})).then(
                 res => {
                     setSuccess(res?.data?.message);
                     passwordRef.current.value = "";

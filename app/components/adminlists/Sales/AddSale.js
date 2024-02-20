@@ -4,9 +4,11 @@ import { SalesContext } from "@/app/context/SalesContext";
 import { AdminContext } from "@/app/context/AdminContext";
 import uniqid from "uniqid";
 import axios from "axios";
+import axiosConfig from "@/app/Utils/axiosRequestConfig";
 
-export default function AddSale({token, id}) {
-    const {setAddSale, services, setModifySuccessful} = useContext(SalesContext);
+export default function AddSale({id}) {
+    const {setAddSale, setModifySuccessful} = useContext(SalesContext);
+    const {services} = useContext(AdminContext);
 
     const [formData, setFormData] = useState({
         paymentMethod: '',
@@ -32,7 +34,6 @@ export default function AddSale({token, id}) {
     }
 
     const recordSale = (e) => {
-        const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
         e.preventDefault();
         if (formData.paymentMethod == "") {
             setError("Payment Method is Empty");
@@ -40,17 +41,7 @@ export default function AddSale({token, id}) {
             setError("Service is Empty");
         } else {
             setPending(true);
-            const axiosConfig = {
-                method: "post",
-                url: `https://my-kinyozi-server.onrender.com/API/sales/create/${id}`,
-                data: formData,
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-API-KEY": API_KEY,
-                    "x-access-token": token
-                }
-            }
-            axios(axiosConfig).then(
+            axios(axiosConfig("post", `https://my-kinyozi-server.onrender.com/API/sales/create/${id}`, formData)).then(
                 res => {
                     setSuccess(res?.data?.message);
                     setFormData({

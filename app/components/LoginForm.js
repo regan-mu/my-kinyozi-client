@@ -42,16 +42,20 @@ export default function LoginForm() {
             res => {
                 const accessToken = res?.data?.Token;
                 const publicId = res?.data?.public_id;
+                const email = res?.data?.email;
+                const name = res?.data?.name;
 
                 cookies.set("token", accessToken, {path: "/", sameSite: "None", secure:true});
                 cookies.set("public_id", publicId, {path: "/", sameSite: "None", secure:true});
+                cookies.set("name", name, {path: "/", sameSite: "None", secure:true});
+                cookies.set("email", email, {path: "/", sameSite: "None", secure:true});
 
-                router.push("/");
+                router.push(`/dashboard/${publicId}`);
                 setFormLoading(false);
             }
         ).catch(err => {
-            if (!err?.response?.status) {
-                setLoginError("Can't login. Please try again");
+            if(![404, 401, 409].includes(err?.response?.status)) {
+                setLoginError("Something went wrong. Try Again");
             } else {
                 setLoginError(err?.response?.data);
             }
