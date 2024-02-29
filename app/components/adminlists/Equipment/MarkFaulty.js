@@ -2,6 +2,7 @@ import { useState, useContext, useRef } from "react";
 import Image from "next/image";
 import { EquipmentContext } from "@/app/context/EquipmentContext";
 import axios from "axios";
+import axiosConfig from "@/app/Utils/axiosRequestConfig";
 
 export default function MarkFaulty({token}) {
     const [error, setError] = useState("");

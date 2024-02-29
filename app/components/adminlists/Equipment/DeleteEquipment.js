@@ -26,7 +26,7 @@ export default function DeleteEquipment({token}) {
             setError("Password is Empty");
         } else {
             setPending(true);
-            axios(axiosConfig("delete", `https://my-kinyozi-server.onrender.com/API/equipments/remove/${idToModify}`, null)).then(
+            axios(axiosConfig("delete", `https://my-kinyozi-server.onrender.com/API/equipments/remove/${idToModify}`, {password: passwordRef.current.value})).then(
                 res => {
                     setSuccess(res?.data?.message);
                     passwordRef.current.value = "";
