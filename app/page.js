@@ -40,7 +40,7 @@ export default function Home() {
                 title="Staff Management" 
                 description="Optimize your workforce with effective scheduling. 
                 Ensure your barbershop meets customer demand without unnecessary overstaffing."
-                icon="/staff-icon.svg" image="/barbershop-staff.svg"
+                icon="/manage-staff.svg" image="/barbershop-staff.svg"
                 alt="my kinyozi staff management"
                 grid="md:col-span-3"
               />
@@ -69,14 +69,13 @@ export default function Home() {
           <Image className="relative w-full md:h-full" src="/about-image.svg" alt="about my kinyozi" width={500} height={300} />
           <div className="w-full h-full flex flex-col justify-center">
             <h3 className="text-4xl font-bold mb-1 md:mb-7">About Us</h3>
-            <p className="text-justify text-xl text-gray-400 font-roboto font-thin md:text-[16px] mb-5">
+            <p className="text-justify text-xl text-gray-300 font-roboto font-thin md:text-[16px] mb-5">
               At Kinyozi, our mission is to revolutionize the barbershop industry by providing 
               innovative and user-friendly management solutions. 
               We aim to empower barbershops of all sizes with the tools they need to 
               enhance operational efficiency, elevate customer experiences, 
               and foster growth in an ever-evolving business landscape.
             </p>
-            <Link className="bg-secondary w-max py-2 px-4 text-white rounded-full" href="#about-section">Learn More</Link>
           </div>
         </div>
 

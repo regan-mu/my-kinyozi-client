@@ -26,7 +26,7 @@ export default function RootLayout({ children, params }) {
                         <SideBarLink image="/expenses-icon.svg" link={`/dashboard/${params.id}/expenses`} name="Expenses"/>
                         <SideBarLink image="/scissors-icon.svg" link={`/dashboard/${params.id}/services`} name="Services"/>
                         <SideBarLink image="/equipments-icon.svg" link={`/dashboard/${params.id}/equipment`} name="Equipment"/>
-                        <SideBarLink image="/staff-icon-dash.svg" link={`/dashboard/${params.id}/staff`} name="Staff"/>
+                        <SideBarLink image="/profile.svg" link={`/dashboard/${params.id}/staff`} name="Staff"/>
                         <Notification image="/notification-icon.svg" link={`/dashboard/${params.id}/notifications`} name="Notifications"/>
                         <SideBarLink image="/settings-icon.svg" link={`/dashboard/${params.id}/settings`} name="Settings"/>
                         <Logout />

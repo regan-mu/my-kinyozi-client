@@ -1,6 +1,8 @@
+// Request Password Reset
 "use client";
 import { useState } from "react";
 import axios from "axios";
+import axiosConfig from "../Utils/axiosRequestConfig";
 
 export default function RequestPasswordForm() {
     const [formLoading, setFormLoading] = useState(false);
@@ -14,21 +16,11 @@ export default function RequestPasswordForm() {
     }
 
     const handleRequest = (e) => {
-        const API_KEY = process.env.NEXT_PUBLIC_API_KEY;
         e.preventDefault();
         setFormLoading(true);
         setFormError("");
         setSuccessMessage("");
-        const axiosConfig = {
-            method: "post",
-            url: "https://my-kinyozi-server.onrender.com/API/shop/password/request-reset",
-            data: resetEmail,
-            headers: {
-                "Content-Type": "application/json",
-                "X-API-TOKEN": API_KEY
-            }
-        }
-        axios(axiosConfig).then(
+        axios(axiosConfig("post", "https://my-kinyozi-server.onrender.com/API/shop/password/request-reset", resetEmail)).then(
             res => {
                 setResetEmail({email: ""});
                 setSuccessMessage(res?.data?.message);
@@ -37,7 +29,11 @@ export default function RequestPasswordForm() {
         ).catch(
             err => {
                 setFormLoading(false);
-                setFormError(err.response.data.message);
+                if(![404, 401, 409].includes(err?.response?.status)) {
+                    setLoginError("Something went wrong. Try Again");
+                } else {
+                    setLoginError(err?.response?.data?.message);
+                }
             }
         );
     }

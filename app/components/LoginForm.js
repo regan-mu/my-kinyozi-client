@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import axios from "axios";
 import { useRouter } from 'next/navigation';
 import Cookies from "universal-cookie";
+import Image from "next/image";
 
 export default function LoginForm() {
     const cookies = new Cookies();
@@ -12,8 +13,8 @@ export default function LoginForm() {
     const [formLoading, setFormLoading] = useState(false);
     const emailRef = useRef();
     const passwordRef = useRef();
+    const [showPassword, setShowPassword] = useState(false);
 
-    // Nav to prev protected path otherwise home
    
 
     const handleLogin = (e) => {
@@ -78,7 +79,15 @@ export default function LoginForm() {
             </div>
             <div className="flex flex-col gap-1 mb-4">
                 <label htmlFor="password">Password</label>
-                <input ref={passwordRef} className="h-10 border-[0.1px] border-gray-500 rounded-lg p-2 outline-none bg-accent" required type="password" id="password" name="password" />
+                <div className="relative h-10 w-full">
+                    <div className="absolute flex items-center  h-full w-max right-0 px-2 hover:text-gray-300">
+                        {
+                            !showPassword ? <Image onClick={() => {setShowPassword(true)}}  className="w-[20px] cursor-pointer" src="/eye-open.png" alt="show password" width={24} height={24} /> : 
+                            <Image onClick={() => {setShowPassword(false)}} className="w-[20px] cursor-pointer" src="/eye-closed.png" alt="show password" width={24} height={24} />
+                        }
+                    </div>
+                    <input ref={passwordRef} className="h-full w-full border-[0.1px] border-gray-500 rounded-lg p-2 outline-none bg-accent" required type={!showPassword ? "password" : "text"} id="password" name="password" />
+                </div>
             </div>
             <div className="w-full mb-4 flex justify-end">
                 <Link className="font-thin text-sm hover:text-gray-300" href="/request-password-reset" >Forgot password</Link>

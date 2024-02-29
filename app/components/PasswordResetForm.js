@@ -1,7 +1,9 @@
+// Set new Password
 "use client";
 import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import axiosConfig from "../Utils/axiosRequestConfig";
 
 export default function PasswordResetForm({token}) {
     const [resetError, setResetError] = useState("");
@@ -28,25 +30,20 @@ export default function PasswordResetForm({token}) {
             return
         } else {
             setFormLoading(true);
-            const axiosConfig = {
-                method: "post",
-                url: `https://my-kinyozi-server.onrender.com/API/shop/password/reset/${token}`,
-                data: passwords,
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-API-KEY": API_KEY
-                }
-            }
-            axios(axiosConfig).then(
+            axios(axiosConfig("post", `https://my-kinyozi-server.onrender.com/API/shop/password/reset/${token}`, passwords)).then(
                 res => {
                     setSuccessMessage(res.data.message);
                     setFormLoading(false);
-                    router.push("/login");
+                    setTimeout(() => {router.push("/login");}, 2000);
                 }
             ).catch(
                 err => {
                     setFormLoading(false);
-                    setResetError(err.response.data.message)
+                    if(![404, 401, 409].includes(err?.response?.status)) {
+                        setLoginError("Something went wrong. Try Again");
+                    } else {
+                        setLoginError(err?.response?.data?.message);
+                    }
                 }
             )
         }
